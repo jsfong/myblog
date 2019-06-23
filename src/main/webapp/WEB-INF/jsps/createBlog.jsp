@@ -16,5 +16,9 @@
 <input type="submit" value="save">
 </form>
 ${msg}
+
+<br>
+<a href="displayBlogs">View All</a>
 </body>
+</html>
 </html>
