@@ -15,7 +15,7 @@ import com.jsfong.myblog.repos.BlogRepository;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MyblogApplicationTests {
+public class RepoTests {
 
 	@Autowired
 	private BlogRepository blogRepository;
