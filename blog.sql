@@ -2,7 +2,7 @@ CREATE DATABASE BLOG
 
 USE BLOG
 
-CREATE TABLE blogentry 
+CREATE TABLE blogpost 
 (
 ID INT NOT NULL AUTO_INCREMENT,
 title VARCHAR(256),
@@ -10,6 +10,6 @@ body LONGTEXT,
 PRIMARY KEY (ID)
 )
 
-select * from blogentry
+select * from blogpost
 
-drop table blogentry
+drop table blogpost

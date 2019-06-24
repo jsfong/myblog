@@ -16,7 +16,13 @@ import com.jsfong.myblog.entities.BlogRequireFieldNotFoundException;
 import com.jsfong.myblog.entities.Blogpost;
 import com.jsfong.myblog.service.BlogService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
+@Api(value = "/blog", description = "Operations with blog", produces = "application/json")
 @RequestMapping("/blog")
 public class BlogRestController {
 
@@ -24,6 +30,11 @@ public class BlogRestController {
 	BlogService service;
 
 	// Create
+	@ApiOperation(value="create blog", response=Blogpost.class)
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Blog created",response=Blogpost.class),
+			@ApiResponse(code=500,message="Internal Server Error")
+	})
 	@PostMapping
 	public Blogpost createBlog(@RequestBody Blogpost post) {
 		
@@ -35,18 +46,35 @@ public class BlogRestController {
 	}
 
 	// Get All
+	@ApiOperation(value="Retrieve all blog", response=List.class)
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Blog retrieved",response=List.class),
+			@ApiResponse(code=500,message="Internal Server Error")
+	})
 	@GetMapping
 	public List<Blogpost> getAllBlogs() {
 		return service.getAllBlogEntry();
 	}
 
 	// Get
+	@ApiOperation(value="Retrieve blog with ID", response=Blogpost.class)
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Blog retrieved",response=Blogpost.class),
+			@ApiResponse(code=404,message="Blog not found"),
+			@ApiResponse(code=500,message="Internal Server Error")
+	})
 	@GetMapping("/{id}")
 	public Blogpost getBlog(@PathVariable("id") int id) {
 		return service.getBlogEntryById(id);
 	}
 
 	// Update
+	@ApiOperation(value="Update blog with ID", response=Blogpost.class)
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Blog updated",response=Blogpost.class),
+			@ApiResponse(code=404,message="Blog not found"),
+			@ApiResponse(code=500,message="Internal Server Error")
+	})
 	@PutMapping("{id}")
 	public Blogpost updateBlog(@PathVariable("id") int id, @RequestBody Blogpost post) {	
 
@@ -65,6 +93,12 @@ public class BlogRestController {
 	}
 
 	// Delete
+	@ApiOperation(value="Delete blog with ID")
+	@ApiResponses(value= {
+			@ApiResponse(code=200,message="Blog deleted"),
+			@ApiResponse(code=404,message="Blog not found"),
+			@ApiResponse(code=500,message="Internal Server Error")
+	})
 	@DeleteMapping("/{id}")
 	public void deleteBlog(@PathVariable("id") int id) {
 		service.deleteBlogEntryById(id);
