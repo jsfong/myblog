@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jsfong.myblog.entities.Blogpost;
+import com.jsfong.myblog.exception.BlogNotFoundException;
+import com.jsfong.myblog.exception.BlogRequireFieldNotFoundException;
 import com.jsfong.myblog.repos.BlogRepository;
 
 @Service
@@ -17,6 +19,9 @@ public class BlogServiceImpl implements BlogService {
 
 	@Override
 	public Blogpost createBlogEntry(Blogpost blogpost) {
+		if (blogpost.getTitle() == null) {
+			throw new BlogRequireFieldNotFoundException("Blog title should not be empty");
+		}
 		return repository.save(blogpost);
 	}
 
@@ -31,8 +36,8 @@ public class BlogServiceImpl implements BlogService {
 		try {
 			blogpost = repository.findById(id).get();
 		} catch (NoSuchElementException e) {
+			throw new BlogNotFoundException("Blog not found");
 		}
-
 		return blogpost;
 	}
 
@@ -43,7 +48,7 @@ public class BlogServiceImpl implements BlogService {
 		try {
 			blog2Update = repository.findById(blogpost.getId()).get();
 		} catch (NoSuchElementException e) {
-			return null;
+			throw new BlogNotFoundException("Blog not found");
 		}
 
 		// Update Title if not null

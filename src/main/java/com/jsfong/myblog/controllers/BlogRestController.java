@@ -32,21 +32,18 @@ public class BlogRestController {
 
 	// Create
 	@ApiOperation(value = "create blog", response = Blogpost.class)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Blog created", response = Blogpost.class),
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Blog created", response = Blogpost.class),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@PostMapping
 	public Blogpost createBlog(@RequestBody Blogpost post) {
-
-		if (post.getTitle() == null) {
-			throw new BlogRequireFieldNotFoundException("Blog title should not be empty");
-		}
 		return service.createBlogEntry(post);
-
 	}
 
 	// Get All
 	@ApiOperation(value = "Retrieve all blog", response = List.class)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Blog retrieved", response = List.class),
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Blog retrieved", response = List.class),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping
 	public List<Blogpost> getAllBlogs() {
@@ -55,31 +52,24 @@ public class BlogRestController {
 
 	// Get
 	@ApiOperation(value = "Retrieve blog with ID", response = Blogpost.class)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Blog retrieved", response = Blogpost.class),
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Blog retrieved", response = Blogpost.class),
 			@ApiResponse(code = 404, message = "Blog not found"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping("/{id}")
 	public Blogpost getBlog(@PathVariable("id") int id) {
-		Blogpost blogEntryById = service.getBlogEntryById(id);
-		if (blogEntryById == null) {
-			throw new BlogNotFoundException("Blog not found");
-		}
-		return blogEntryById;
+		return service.getBlogEntryById(id);
 	}
 
 	// Update
 	@ApiOperation(value = "Update blog with ID", response = Blogpost.class)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Blog updated", response = Blogpost.class),
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Blog updated", response = Blogpost.class),
 			@ApiResponse(code = 404, message = "Blog not found"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@PutMapping("{id}")
-	public Blogpost updateBlog(@PathVariable("id") int id, @RequestBody Blogpost post) {
-
-		Blogpost blog2Update = service.updateBlogEntry(post);
-		if (blog2Update == null) {
-			throw new BlogNotFoundException("Blog not found");
-		}
-		return blog2Update;
+	public Blogpost updateBlog(@PathVariable("id") int id, @RequestBody Blogpost post) {		
+		return service.updateBlogEntry(post);
 	}
 
 	// Delete

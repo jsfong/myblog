@@ -19,7 +19,7 @@ import com.jsfong.myblog.service.BlogServiceImpl;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ServiceTest {
-
+//TOOD update
 	@Autowired
 	private BlogService service;
 
