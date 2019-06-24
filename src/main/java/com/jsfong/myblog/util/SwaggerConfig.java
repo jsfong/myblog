@@ -23,8 +23,11 @@ public class SwaggerConfig {
 
 // Describe your apis
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("myBlog Rest APIs")
-				.description("This page lists all the rest apis for myBlog App.").version("1.0-SNAPSHOT").build();
+		return new ApiInfoBuilder()
+				.title("myBlog Rest APIs")
+				.description("This page lists all the rest apis for myBlog App.")
+				.version("1.0.0")
+				.build();
 	}
 
 // Only select apis that matches the given Predicates.
@@ -33,4 +36,6 @@ public class SwaggerConfig {
 		return Predicates.and(PathSelectors.regex("/blog.*"), Predicates.not(PathSelectors.regex("/error.*")));
 
 	}
+	
+	
 }
