@@ -1,6 +1,7 @@
 package com.jsfong.myblog.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class BlogServiceImpl implements BlogService {
 
 	@Autowired
 	private BlogRepository repository;
-	
+
 	@Override
 	public Blogpost createBlogEntry(Blogpost blogpost) {
 		return repository.save(blogpost);
@@ -26,12 +27,36 @@ public class BlogServiceImpl implements BlogService {
 
 	@Override
 	public Blogpost getBlogEntryById(int id) {
-		return  repository.findById(id).get();
+		Blogpost blogpost = null;
+		try {
+			blogpost = repository.findById(id).get();
+		} catch (NoSuchElementException e) {
+		}
+
+		return blogpost;
 	}
 
 	@Override
 	public Blogpost updateBlogEntry(Blogpost blogpost) {
-		return repository.save(blogpost);
+		Blogpost blog2Update = null;
+
+		try {
+			blog2Update = repository.findById(blogpost.getId()).get();
+		} catch (NoSuchElementException e) {
+			return null;
+		}
+
+		// Update Title if not null
+		if (blogpost.getTitle() != null) {
+			blog2Update.setTitle(blogpost.getTitle());
+		}
+
+		// Update Body if not null
+		if (blogpost.getBody() != null) {
+			blog2Update.setBody(blogpost.getBody());
+		}
+
+		return repository.save(blog2Update);
 	}
 
 	@Override
@@ -43,7 +68,7 @@ public class BlogServiceImpl implements BlogService {
 	@Override
 	public void deleteAllBlogEntry() {
 		repository.deleteAll();
-		
+
 	}
 
 }

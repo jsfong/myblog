@@ -1,4 +1,4 @@
-package com.jsfong.myblog.entities;
+package com.jsfong.myblog.exception;
 
 
 @SuppressWarnings("serial")
