@@ -1,4 +1,4 @@
-package com.jsfong.myblog;
+package com.jsfong.myblog.unittest;
 
 import static org.junit.Assert.*;
 
