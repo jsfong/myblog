@@ -20,9 +20,9 @@ public class CreateBlogStep extends CucumberRoot {
 	private String sampleBody = "Sample body";
 	private ResponseEntity<Blogpost> response; // output
 	
-	//When the client makes a call /blog
-	@When("^the client makes a call /blog$")
-	public void the_client_makes_a_call_blog() throws Throwable {
+	//when client makes a call to POST /blog
+	@When("^the client makes a call to POST /blog$")
+	public void the_client_makes_a_call_to_POST() throws Throwable {
 		Blogpost newBlogpost = new Blogpost();
 		newBlogpost.setTitle(sampleTitle);
 		newBlogpost.setBody(sampleBody);
