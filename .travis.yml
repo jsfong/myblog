@@ -1,10 +1,16 @@
 language: java
 jdk: oraclejdk8
-
 services:
-  - mysql
+- mysql
 sudo: true
-
 before_install:
-  - mysql -e 'CREATE DATABASE blog;'  
-  - mysql -u root --default-character-set=utf8 blog < scripts/blog.sql
+- mysql -e 'CREATE DATABASE blog;'
+- mysql -u root --default-character-set=utf8 blog < scripts/blog.sql
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: Q6vUqE/wWyqXOGk/mT2utz6RfBf5pyVdFrK8u0W7A/u/P2php8pJq/USedILpw20mvh4GBpgiaZwaEHa5dgcWX4nPK+MCcVIzVBg9aGm5FCUrevAM+3+TtyKr0i/gZ1T/DxFsb1krcrfQY7nmFidMImxfl/+VFpWYfQEp5VZLVq8sNIbvo7ud+gQh/u28dY6TeghK0WIrh1gGt/EW989jRMWyd3CAli2GzBm6atCMLrN24TyfZKRQ7iQnrXplEkrGNzzsDiBneGcbQjSbQJBJl8FIU1qdJaXfFHm9d0P4808OpwmigUeEXjz609YQaG/FwwxMydCUw6WNkeeAG3tI+ssNp44UjKclZIE4KaIjUNSzk7VYU0PQEB9+YIBi9a2ZTLvv7w5a/uL5wN1AT+R8pWwzeN86nlj+vMP7Zx9vWdbdWxB2t1vyhV523YIPzksgzbewUxjZKCbapr4S1AQ3+Y8GarFsgRJSRdv/GFfjGgJY6NXHuD8ipMotVBKD1odQL97EpgKAnfIrlAivL6gxbfAhw8L+qkegQ/jr76rl4P4EDebIehvkhWsu616sjULIAVUB5omxw2+0jD4wFahUp1u/qrOV74RhgYd+j+z9j/WPTzXjE3OmJ3cN1kMclR3n/cwvK344QhI/bKd3y0KQ5HyqTGcsGHc/SHOzwGZ2ZY=
+  app: jsfong-my-blog
+  on:
+    repo: jsfong/myblog
