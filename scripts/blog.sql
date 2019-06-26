@@ -1,4 +1,4 @@
-USE BLOG
+USE blog
 
 CREATE TABLE blogpost 
 (
