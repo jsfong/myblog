@@ -7,4 +7,4 @@ sudo: true
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS BLOG;'  
-  - mysql -u root --default-character-set=utf8 baladay < scripts/blog.sql
+  - mysql -u root --default-character-set=utf8 BLOG < scripts/blog.sql
