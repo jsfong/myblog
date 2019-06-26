@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import com.jsfong.myblog.entities.Blogpost;
 
 import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -18,7 +19,19 @@ public class CreateBlogStep extends CucumberRoot {
 	final String uri = "/blog";
 	private String sampleTitle = "Sample title";
 	private String sampleBody = "Sample body";
+	private Blogpost samplePost;
 	private ResponseEntity<Blogpost> response; // output
+	
+	
+	//Given there is a blog created
+	@Given("^there is a blog created$")
+	public void there_is_a_blog_created() {
+		samplePost = new Blogpost();
+		samplePost.setTitle(sampleTitle);
+		samplePost.setBody(sampleBody);
+		response = template.postForEntity(uri, samplePost, Blogpost.class);
+		samplePost=response.getBody();
+	}
 	
 	//when client makes a call to POST /blog
 	@When("^the client makes a call to POST /blog$")
@@ -30,6 +43,14 @@ public class CreateBlogStep extends CucumberRoot {
 		
 		System.out.println(response.getBody());
 	}
+	
+	//When the client makes a call to GET /blog with id
+	@When("^the client makes a call to GET /blog with id$")
+	public void the_client_makes_a_call_to_GE_with_id() {
+		String id = String.valueOf(samplePost.getId());
+		response=template.getForEntity(uri+"/"+id, Blogpost.class);
+	}
+	
 	
 	//Then the client receives response status code of 200
 	@Then("^the client receives response status code of (\\d+)$")
@@ -43,5 +64,11 @@ public class CreateBlogStep extends CucumberRoot {
 	public void the_client_receives_back_the_blog_entered() {
 		assertEquals(response.getBody().getTitle(), sampleTitle);
 		assertEquals(response.getBody().getBody(), sampleBody);
+	}
+	
+	//And the client receives back the blog with the specific id
+	@And("^the client receives back the blog with the specific id$")
+	public void the_client_receives_back_the_blog_with_the_specific_id() {
+		assertEquals(response.getBody().getId(), samplePost.getId());
 	}
 }
