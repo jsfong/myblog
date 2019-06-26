@@ -74,6 +74,13 @@ public class CreateBlogStep extends CucumberRoot {
 		response = template.exchange(uri+"/"+id, HttpMethod.PUT, requestEntity, Blogpost.class);
 
 	}
+	
+	//When the client makes a call to DELETE /blog by id
+	@When("^the client makes a call to DELETE /blog by id$")
+	public void the_client_makes_a_call_to_DELETE_by_id() {
+		String id = String.valueOf(samplePost.getId());
+		response = template.exchange(uri+"/"+id, HttpMethod.DELETE, null, Blogpost.class);
+	}
 
 	/**
 	 * THEN
