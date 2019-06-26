@@ -69,7 +69,7 @@ public class BlogRestController {
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@PutMapping("{id}")
 	public Blogpost updateBlog(@PathVariable("id") int id, @RequestBody Blogpost post) {		
-		return service.updateBlogEntry(post);
+		return service.updateBlogEntry(id, post);
 	}
 
 	// Delete

@@ -42,11 +42,11 @@ public class BlogServiceImpl implements BlogService {
 	}
 
 	@Override
-	public Blogpost updateBlogEntry(Blogpost blogpost) {
+	public Blogpost updateBlogEntry(int id, Blogpost blogpost) {
 		Blogpost blog2Update = null;
 
 		try {
-			blog2Update = repository.findById(blogpost.getId()).get();
+			blog2Update = repository.findById(id).get();
 		} catch (NoSuchElementException e) {
 			throw new BlogNotFoundException("Blog not found");
 		}

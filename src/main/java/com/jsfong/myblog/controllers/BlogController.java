@@ -54,7 +54,7 @@ public class BlogController {
 
 	@RequestMapping("/updateBlog")
 	public String editBlog(@ModelAttribute("blog") Blogpost post, ModelMap modelMap) {
-		service.updateBlogEntry(post);
+		service.updateBlogEntry(post.getId(), post);
 		List<Blogpost> allBlogEntry = service.getAllBlogEntry();
 		modelMap.addAttribute("blogs", allBlogEntry);
 		return "displayBlogs";

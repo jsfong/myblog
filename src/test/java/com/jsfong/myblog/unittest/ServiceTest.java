@@ -3,6 +3,7 @@ package com.jsfong.myblog.unittest;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -13,6 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.jsfong.myblog.entities.Blogpost;
+import com.jsfong.myblog.exception.BlogNotFoundException;
+import com.jsfong.myblog.exception.BlogRequireFieldNotFoundException;
 import com.jsfong.myblog.service.BlogService;
 import com.jsfong.myblog.service.BlogServiceImpl;
 
@@ -58,7 +61,7 @@ public class ServiceTest {
 	}
 
 	@Test
-	public void testRepoViewAllBlog() {
+	public void testServiceViewAllBlog() {
 
 		testSetup();
 		List<Blogpost> allBlogEntry = service.getAllBlogEntry();
@@ -66,7 +69,7 @@ public class ServiceTest {
 	}
 
 	@Test
-	public void testRepoViewBlogById() {
+	public void testServiceViewBlogById() {
 
 		testSetup();
 		List<Blogpost> allBlogEntry = service.getAllBlogEntry();
@@ -80,25 +83,54 @@ public class ServiceTest {
 	}
 
 	@Test
-	public void testRepoUpdateBlogpost() {
+	public void testServiceUpdateBlogpost() {
 
 		testSetup();
 		List<Blogpost> allBlogEntry = service.getAllBlogEntry();
 		Blogpost post2Update = allBlogEntry.get(0);
 		post2Update.setTitle("Updated");
-		Blogpost postUpdated = service.updateBlogEntry(post2Update);
+		Blogpost postUpdated = service.updateBlogEntry(post2Update.getId(), post2Update);
 
 		assertEquals(post2Update.getTitle(), postUpdated.getTitle());
 
 	}
 
 	@Test
-	public void testRepoDeleteBlogpostById() {
+	public void testServiceDeleteBlogpostById() {
 		testSetup();
 		List<Blogpost> allBlogEntry = service.getAllBlogEntry();
 		Blogpost post2Delete = allBlogEntry.get(0);
 		service.deleteBlogEntryById(post2Delete.getId());
 
+	}
+
+	@Test(expected = BlogNotFoundException.class)
+	public void testServiceUpdateBlogpostWrongId() {
+		testSetup();
+		List<Blogpost> allBlogEntry = service.getAllBlogEntry();
+		Blogpost post2Update = allBlogEntry.get(0);
+		post2Update.setTitle("Updated");
+		service.updateBlogEntry(post2Update.getId() - 1, post2Update);
+
+	}
+
+	@Test(expected = BlogNotFoundException.class)
+	public void testServiceGetBlogpostWrongId() {
+		testSetup();
+		List<Blogpost> allBlogEntry = service.getAllBlogEntry();
+		Blogpost firstBlog = allBlogEntry.get(0);
+		service.getBlogEntryById(firstBlog.getId() - 1);
+	}
+
+	@Test(expected = BlogRequireFieldNotFoundException.class)
+	public void testServiceCreateBlogMissingTitle() {
+
+		String body = "Sample body2";
+		Blogpost blog = new Blogpost();
+		blog.setBody(body);
+
+		// Create an blog entry
+		service.createBlogEntry(blog);
 	}
 
 }

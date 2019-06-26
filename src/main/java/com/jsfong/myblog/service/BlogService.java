@@ -12,7 +12,7 @@ public interface BlogService {
 
 	public Blogpost getBlogEntryById(int id);
 	
-	public Blogpost updateBlogEntry(Blogpost blogpost);
+	public Blogpost updateBlogEntry(int id, Blogpost blogpost);
 	
 	public void deleteBlogEntryById(int id);
 	
