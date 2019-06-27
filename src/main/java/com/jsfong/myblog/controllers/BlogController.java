@@ -25,12 +25,8 @@ public class BlogController {
 
 	@RequestMapping("/saveBlog")
 	public String saveBlog(@ModelAttribute("blogpost") Blogpost post, ModelMap modelMap) {
-
-		System.out.println("Creating Post " + post.getTitle() + post.getBody());
 		Blogpost createdBlogEntry = service.createBlogEntry(post);
-		String msg = "Blog post with id: " + createdBlogEntry.getId() + " created";
-		System.out.println("Post " + createdBlogEntry.getTitle() + createdBlogEntry.getBody() + "with id: "
-				+ createdBlogEntry.getId());
+		String msg = "Blog post with id: " + createdBlogEntry.getId() + " created";		
 		modelMap.addAttribute("msg", msg);
 		return "createBlog";
 
