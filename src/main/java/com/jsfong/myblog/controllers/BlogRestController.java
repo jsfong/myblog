@@ -3,6 +3,7 @@ package com.jsfong.myblog.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,7 @@ public class BlogRestController {
 	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Blog created", response = Blogpost.class),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
-	@PostMapping
+	@PostMapping(consumes=MediaType.APPLICATION_JSON_VALUE)
 	public Blogpost createBlog(@RequestBody Blogpost post) {
 		return service.createBlogEntry(post);
 	}
@@ -45,7 +46,7 @@ public class BlogRestController {
 	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "Blog retrieved", response = List.class),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
-	@GetMapping
+	@GetMapping(produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Blogpost> getAllBlogs() {
 		return service.getAllBlogEntry();
 	}
@@ -56,7 +57,7 @@ public class BlogRestController {
 			@ApiResponse(code = 200, message = "Blog retrieved", response = Blogpost.class),
 			@ApiResponse(code = 404, message = "Blog not found"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
-	@GetMapping("/{id}")
+	@GetMapping(path="/{id}", produces= MediaType.APPLICATION_JSON_VALUE)
 	public Blogpost getBlog(@PathVariable("id") int id) {
 		return service.getBlogEntryById(id);
 	}
@@ -67,7 +68,7 @@ public class BlogRestController {
 			@ApiResponse(code = 200, message = "Blog updated", response = Blogpost.class),
 			@ApiResponse(code = 404, message = "Blog not found"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
-	@PutMapping("{id}")
+	@PutMapping(path="{id}",consumes=MediaType.APPLICATION_JSON_VALUE)
 	public Blogpost updateBlog(@PathVariable("id") int id, @RequestBody Blogpost post) {		
 		return service.updateBlogEntry(id, post);
 	}
