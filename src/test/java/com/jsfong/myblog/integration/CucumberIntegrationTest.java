@@ -12,6 +12,6 @@ import cucumber.api.junit.Cucumber;
 @RunWith(Cucumber.class)
 @CucumberOptions(features="src/main/resources/features",
 		plugin= {"pretty", "html:target/cucumber"})
-public class CucumberIntegrationIT {
+public class CucumberIntegrationTest {
 
 }
