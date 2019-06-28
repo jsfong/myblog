@@ -1,12 +1,14 @@
 # myBLOG
 A demo blog entry application to showcase Spring boot, REST API, Swagger UI, Cucumber, Jacoco plugin, Travis-CI.
 
-## Technogy Used
+## Technogies Used
 * Framework - Spring boot, REST API
 * Integration Test - Cucumber for BDD development
 * Test Coverage - Jacoco
 * REST API documentation - Swagger UI
 * Continuous Integration - Travis-CI
+* Hosting - Heroku
+* Database - PostgreSQL
 
 ## Overview
 myBLOG is a backend server which have the following functionalities:
@@ -35,7 +37,7 @@ Endpoint for REST API is /blog
 
 ### API Overview
 
-For more detail API, refer to [Swagger documentation](http://localhost:8080/swagger-ui.html#/).
+For more detail API, refer to [Swagger documentation](https://jsfong-my-blog.herokuapp.com/swagger-ui.html#/).
 
 Blog Model in json payload:
 
@@ -85,7 +87,7 @@ example:
 * Return: None
 
 ## Web UI
-Refer to the [Web UI](http://localhost:8080/showCreateBlog) JSP View
+Refer to the [Web UI](https://jsfong-my-blog.herokuapp.com/showCreateBlog) JSP View
 
 ## Testing
 ### Unit Test
