@@ -6,7 +6,7 @@ sudo: true
 
 before_script:
   - psql -c 'create database blog;' -U postgres
-  - psql -U blog -d postgres -a -f ./scripts/blog.sql
+  - psql -U postgres -f /scripts/blog.sql blog 
   
 deploy:
   provider: heroku
