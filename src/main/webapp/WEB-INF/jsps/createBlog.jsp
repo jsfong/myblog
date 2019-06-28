@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Create Blog Post</title>
+<h3>Version 1.0.0</h3>
 </head>
 <body>
 <h2>Enter your blog post: </h2>
