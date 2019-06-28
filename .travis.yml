@@ -6,7 +6,7 @@ sudo: true
 
 before_script:
   - psql -c 'create database blog;' -U postgres
-  - psql -u root --default-character-set=utf8 blog < scripts/blog.sql
+  - psql -u postgres --default-character-set=utf8 blog < scripts/blog.sql
   
 deploy:
   provider: heroku
