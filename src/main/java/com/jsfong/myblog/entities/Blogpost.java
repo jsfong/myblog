@@ -18,7 +18,7 @@ public class Blogpost {
 	@ApiModelProperty(notes="The title of the blog post")
 	private String title;
 	
-	@ApiModelProperty(notes="The contain of the blog post",allowEmptyValue=true)
+	@ApiModelProperty(notes="The contain of the blog post",required=true)
 	private String body;
 
 	public int getId() {
