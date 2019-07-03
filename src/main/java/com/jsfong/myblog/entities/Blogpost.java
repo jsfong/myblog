@@ -15,10 +15,10 @@ public class Blogpost {
 	@ApiModelProperty(notes="The database generated product ID")
 	private int id;
 	
-	@ApiModelProperty(notes="The title of the blog post")
+	@ApiModelProperty(notes="The title of the blog post",required=true)
 	private String title;
 	
-	@ApiModelProperty(notes="The contain of the blog post",required=true)
+	@ApiModelProperty(notes="The contain of the blog post")
 	private String body;
 
 	public int getId() {
